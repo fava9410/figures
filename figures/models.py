@@ -7,6 +7,7 @@ from django.conf import settings
 from django.contrib.sites.models import Site
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
+from django.db.models import F
 from django.utils.encoding import python_2_unicode_compatible
 
 from jsonfield import JSONField
@@ -178,7 +179,39 @@ class LearnerCourseGradeMetricsManager(models.Manager):
     """
     def most_recent_for_learner_course(self, user, course_id):
         queryset = self.filter(user=user, course_id=str(course_id))
-        return queryset.order_by('-date_for').first()   # pylint: disable=no-member
+        if queryset:
+            return queryset.order_by('-date_for')[0]
+        else:
+            return None
+
+    def completed_for_site(self, site, **_kwargs):
+        """Return course_id/user_id pairs that have completed
+        Initial filters on list of users, listr of course ids
+
+        User IDs can be filtered by passing `user_id=` list of user ids
+
+        Course IDs can be filtered by passing `course_ids=` list of course ids
+
+        Returns a distinct QuerySet dict list of values with keys
+        'course_id' and 'user_id'
+        """
+        qs = self.filter(site=site,
+                         sections_possible__gt=0,
+                         sections_worked=F('sections_possible'))
+
+        # Build out filter. Note, we don't check if the var is iterable
+        # we let it fail of invalid values passed in
+        filter_args = dict()
+        user_ids = _kwargs.get('user_ids', None)
+        if user_ids:
+            filter_args['user_id__in'] = user_ids
+        course_ids = _kwargs.get('course_ids', None)
+        if course_ids:
+            # We do the string casting in case couse_ids are CourseKey instance
+            filter_args['course_id__in'] = [str(key) for key in course_ids]
+        if filter_args:
+            qs = qs.filter(**filter_args)
+        return qs.values('course_id', 'user_id').distinct()
 
 
 @python_2_unicode_compatible
