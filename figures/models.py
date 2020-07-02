@@ -210,7 +210,7 @@ class LearnerCourseGradeMetricsManager(models.Manager):
             # We do the string casting in case couse_ids are CourseKey instance
             filter_args['course_id__in'] = [str(key) for key in course_ids]
         if filter_args:
-            qs = qs.filter(**filter_args)
+            qs = qs.filter(**filter_args)  # pylint: disable=E1101
         return qs.values('course_id', 'user_id').distinct()
 
 
