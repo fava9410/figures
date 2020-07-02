@@ -143,6 +143,16 @@ class UsersList extends Component {
               </div>
             </div>
           </div>
+          <div className={styles['date-joined']}>
+            <div className={styles['in-cell-label-value']}>
+              <div className={styles['mobile-label']}>
+                Date last login:
+              </div>
+              <div className={styles['mobile-value']}>
+                {user['last_login']}
+              </div>
+            </div>
+          </div>
           <div className={styles['number-of-courses']}>
             <div className={styles['in-cell-label-value']}>
               <div className={styles['mobile-label']}>

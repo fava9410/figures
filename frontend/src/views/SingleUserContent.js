@@ -59,6 +59,7 @@ class SingleUserContent extends Component {
 
   render() {
     const dateJoined = new Date(this.state.userData.getIn(['date_joined']));
+    const dateLastLogin = new Date(this.state.userData.getIn(['last_login']));
 
     return (
       <div className="ef--layout-root">
@@ -89,6 +90,10 @@ class SingleUserContent extends Component {
               <li>
                 <span className={styles['label']}>Date joined:</span>
                 <span className={styles['value']}>{dateJoined.toUTCString()}</span>
+              </li>
+              <li>
+                <span className={styles['label']}>Date last login:</span>
+                <span className={styles['value']}>{dateLastLogin.toUTCString()}</span>
               </li>
               <li>
                 <span className={styles['label']}>Account activated:</span>
