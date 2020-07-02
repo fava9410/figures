@@ -180,7 +180,7 @@ class LearnerCourseGradeMetricsManager(models.Manager):
     def most_recent_for_learner_course(self, user, course_id):
         queryset = self.filter(user=user, course_id=str(course_id))
         if queryset:
-            return queryset.order_by('-date_for')[0]
+            return queryset.order_by('-date_for')[0]  # pylint: disable=E1101
         else:
             return None
 
