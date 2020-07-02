@@ -401,7 +401,7 @@ class TestGeneralUserDataSerializer(object):
 
         self.expected_fields = [
             'id', 'username', 'email', 'fullname','country', 'is_active', 'gender',
-            'date_joined', 'year_of_birth', 'level_of_education', 'courses',
+            'date_joined', 'last_login', 'year_of_birth', 'level_of_education', 'courses',
             'language_proficiencies',
         ]
 
@@ -535,7 +535,7 @@ class TestLearnerDetailsSerializer(object):
         '''
         expected_fields = set([
         'id', 'username', 'name', 'email', 'country', 'is_active', 'year_of_birth',
-        'level_of_education', 'gender', 'date_joined', 'bio', 'courses',
+        'level_of_education', 'gender', 'date_joined', 'last_login', 'bio', 'courses',
         'language_proficiencies', 'profile_image'
         ])
         data = self.serializer.data

@@ -489,6 +489,7 @@ class GeneralUserDataSerializer(serializers.Serializer):
         "level_of_education": "b",
         "gender": "m",
         "date_joined": "2018-05-06T14:01:58Z",
+        "last_login": "2019-05-06T14:01:58Z",
         "language_proficiencies": [],
         "courses": [
           {
@@ -522,6 +523,7 @@ class GeneralUserDataSerializer(serializers.Serializer):
         source='profile.year_of_birth', read_only=True)
     gender = serializers.CharField(source='profile.gender', read_only=True)
     date_joined = serializers.DateTimeField(format="%Y-%m-%d", read_only=True)
+    last_login = serializers.DateTimeField(format="%Y-%m-%d", read_only=True)
     level_of_education = serializers.CharField(
         source='profile.level_of_education',
         allow_blank=True,
@@ -668,6 +670,7 @@ class LearnerDetailsSerializer(serializers.ModelSerializer):
       "level_of_education": "b",
       "gender": "m",
       "date_joined": "2018-05-06T14:01:58Z",
+      "last_login": "2019-05-06T14:01:58Z",
       "bio": null,
       "profile_image": {
             "image_url_full": "http://localhost:8000/static/images/profiles/default_500.png",
@@ -728,7 +731,7 @@ class LearnerDetailsSerializer(serializers.ModelSerializer):
         editable = False
         fields = (
             'id', 'username', 'name', 'email', 'country', 'is_active',
-            'year_of_birth', 'level_of_education', 'gender', 'date_joined',
+            'year_of_birth', 'level_of_education', 'gender', 'date_joined', 'last_login',
             'bio', 'courses', 'language_proficiencies', 'profile_image',
             )
         read_only_fields = fields

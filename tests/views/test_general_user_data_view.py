@@ -136,7 +136,7 @@ class TestGeneralUserViewSet(BaseViewTest):
             make_course_enrollments(user, self.course_overviews) for user in self.users]
         self.expected_result_keys = [
             'id', 'username', 'email', 'fullname', 'country', 'is_active', 'gender',
-            'date_joined', 'year_of_birth', 'level_of_education', 'courses',
+            'date_joined', 'last_login', 'year_of_birth', 'level_of_education', 'courses',
             'language_proficiencies',
         ]
 
